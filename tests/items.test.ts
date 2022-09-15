@@ -41,9 +41,9 @@ describe('Testa GET /items ', () => {
 });
 
 describe('Testa GET /items/:id ', () => {
-  it('Deve retornar status 200 e um objeto igual a o item cadastrado', async () => {
-    const newItem = itemsFactory.getNewItem();
+  const newItem = itemsFactory.getNewItem();
 
+  it('Deve retornar status 200 e um objeto igual a o item cadastrado', async () => {
     const result = await supertest(app).post('/items').send(newItem);
     const resultGet = await supertest(app).get(`/items/${result.body.id}`);
 
@@ -54,7 +54,6 @@ describe('Testa GET /items/:id ', () => {
   });
 
   it('Deve retornar status 404 caso não exista um item com esse id', async () => {
-    const newItem = itemsFactory.getNewItem();
     const result = await supertest(app).post('/items').send(newItem);
     const resultGet = await supertest(app).get(`/items/${result.body.id + 1}`);
 
