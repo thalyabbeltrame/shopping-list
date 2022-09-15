@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 
-function validInput() {
+function getNewItem() {
   return {
     title: faker.lorem.word(),
     url: faker.internet.url(),
@@ -10,5 +10,5 @@ function validInput() {
 }
 
 export const itemsFactory = {
-  validInput,
+  getNewItem,
 };

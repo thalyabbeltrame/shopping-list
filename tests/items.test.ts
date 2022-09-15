@@ -15,17 +15,17 @@ afterAll(async () => {
 });
 
 describe('Testa POST /items ', () => {
-  const newValidItem = itemsFactory.validInput();
+  const newItem = itemsFactory.validInput();
 
   it('Deve retornar 201, se cadastrado um item no formato correto', async () => {
-    const result = await supertest(app).post('/items').send(newValidItem);
+    const result = await supertest(app).post('/items').send(newItem);
     const status = result.status;
     expect(status).toEqual(201);
   });
 
   it('Deve retornar 409, ao tentar cadastrar um item que exista', async () => {
-    await supertest(app).post('/items').send(newValidItem);
-    const result = await supertest(app).post('/items').send(newValidItem);
+    await supertest(app).post('/items').send(newItem);
+    const result = await supertest(app).post('/items').send(newItem);
     const status = result.status;
     expect(status).toEqual(409);
   });
@@ -44,9 +44,9 @@ describe('Testa GET /items ', () => {
 
 describe('Testa GET /items/:id ', () => {
   it('Deve retornar status 200 e um objeto igual a o item cadastrado', async () => {
-    const newValidItem = itemsFactory.validInput();
+    const newItem = itemsFactory.validInput();
 
-    const result = await supertest(app).post('/items').send(newValidItem);
+    const result = await supertest(app).post('/items').send(newItem);
     const id = result.body.id;
     const resultGet = await supertest(app).get(`/items/${id}`);
 
@@ -55,12 +55,12 @@ describe('Testa GET /items/:id ', () => {
 
     const body = resultGet.body;
     delete body.id;
-    expect(body).toEqual(newValidItem);
+    expect(body).toEqual(newItem);
   });
 
   it('Deve retornar status 404 caso não exista um item com esse id', async () => {
-    const newValidItem = itemsFactory.validInput();
-    const result = await supertest(app).post('/items').send(newValidItem);
+    const newItem = itemsFactory.validInput();
+    const result = await supertest(app).post('/items').send(newItem);
     const id = result.body.id + 1;
     const resultGet = await supertest(app).get(`/items/${id}`);
 
