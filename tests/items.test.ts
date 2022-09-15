@@ -2,10 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import supertest from 'supertest';
 import app from '../src/app';
 
-import dotenv from 'dotenv';
 import { itemsFactory } from './factories/itemsFactory';
-
-dotenv.config();
 
 const client = new PrismaClient();
 
