@@ -15,7 +15,7 @@ afterAll(async () => {
 });
 
 describe('Testa POST /items ', () => {
-  const newItem = itemsFactory.validInput();
+  const newItem = itemsFactory.getNewItem();
 
   it('Deve retornar 201, se cadastrado um item no formato correto', async () => {
     const result = await supertest(app).post('/items').send(newItem);
@@ -44,7 +44,7 @@ describe('Testa GET /items ', () => {
 
 describe('Testa GET /items/:id ', () => {
   it('Deve retornar status 200 e um objeto igual a o item cadastrado', async () => {
-    const newItem = itemsFactory.validInput();
+    const newItem = itemsFactory.getNewItem();
 
     const result = await supertest(app).post('/items').send(newItem);
     const id = result.body.id;
@@ -59,7 +59,7 @@ describe('Testa GET /items/:id ', () => {
   });
 
   it('Deve retornar status 404 caso não exista um item com esse id', async () => {
-    const newItem = itemsFactory.validInput();
+    const newItem = itemsFactory.getNewItem();
     const result = await supertest(app).post('/items').send(newItem);
     const id = result.body.id + 1;
     const resultGet = await supertest(app).get(`/items/${id}`);
